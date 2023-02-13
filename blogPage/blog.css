@@ -1,0 +1,9 @@
+html,
+html,
+body {
+    height: 100%;
+}
+
+.global-blog-background-img {
+    background-image: url('../PIC/01.jpg');
+}
