@@ -1,9 +1,65 @@
 html,
-html,
 body {
     height: 100%;
+    margin: 0px;
 }
 
 .global-blog-background-img {
-    background-image: url('../PIC/01.jpg');
+    background-image: url('../PIC/blogpage02.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-direction-row {
+    flex-direction: row;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.border {
+    border: solid 1px black;
+}
+
+.none-Margin {
+    margin: 0px;
+}
+
+#leftNevigate {
+    flex: 1;
+    display: block;
+}
+
+#mainPart {
+    flex: 9;
+    display: block;
+}
+
+#blogHosterIntro {
+    flex: 3;
+    display: block;
+}
+
+#blogbody {
+    position: relative;
+    top: 40px;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 100%;
+}
+
+#navigate {
+    width: 100%;
+    height: 65px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.Navigate-button {
+    flex: 1;
+    text-align: center;
+    line-height: 60px;
 }
