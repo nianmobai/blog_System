@@ -19,6 +19,14 @@ $(document).ready(function () {
         }
     )
 })
+$('.Navigate-button').bind('click', function () {
+    let partId = $(this).attr('id');
+    console.log(partId);
+    let content = partId.replace('-button', '');
+    console.log(content);
+    $('#content div').hide();
+    $('#' + content).fadeIn(300);
+})
 
 /**
  * function: check if  the path is exist 
@@ -26,17 +34,17 @@ $(document).ready(function () {
  * @returns true if the path is exist ,else return false
  */
 function FileExist(url) {
-    let exixst;
+    let exist;
     $.ajax({
         type: 'HEAD',
         url: url,
         async: false,
         success: function () {
-            exixst = true;
+            exist = true;
         },
         error: function () {
-            exixst = false;
+            exist = false;
         }
     })
-    return exixst;
+    return exist;
 }

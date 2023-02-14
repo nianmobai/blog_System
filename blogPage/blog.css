@@ -68,20 +68,25 @@ body {
 
 #talking {
     display: block;
+    width: 100%;
 }
 
-#Javascript {
-    display: hidden;
+#javascript {
+    display: none;
+    width: 100%;
 }
 
 #php {
-    display: hidden;
+    display: none;
+    width: 100%;
 }
 
 #works {
-    display: hidden;
+    display: none;
+    width: 100%;
 }
 
 #galgame {
-    display: hidden;
+    display: none;
+    width: 100%;
 }
