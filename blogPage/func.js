@@ -1,17 +1,21 @@
 const Retrieval_model = '<div class="article-Retrieval border flex"><div class="article-pic border" ><img></div><div class="article-Intro flex-direction-column flex border"><div class="headline flex border"></div><div class="briefIntro border"></div><div class="time border flex"></div></div></div> ';
 const first_child_Element = '>.article-Retrieval:eq{0}';
-const tag_model = '<div class="tag-label"></div>'
+const tag_model = ' <div class="tag-label flex-direction-row"><div class="triangle"></div ><div class="tag-text flex flex-center">tagContent</div></div> '
 console.log("导入成功");
 $(document).ready(Adjust_Size());
 function Adjust_Size() {
+    $('#blogbody').css('height', 'max-content');
+    $('#mainPart').css('height', 'max-content');
     let blog_bodyPosition = $('#blogbody').offset();
     let blog_bodyHeight = $('#blogbody').height();
-    console.log(blog_bodyHeight)
-    console.log(blog_bodyPosition['top']);
-    let view_areaHeight = $(document).height()
-    if ((blog_bodyHeight + blog_bodyPosition['top']) != view_areaHeight) {
+    console.log("blogbody的高度" + blog_bodyHeight);
+    console.log("blogbody的偏移" + blog_bodyPosition['top']);
+    let view_areaHeight = $(document).height();
+    console.log("文档的高度" + view_areaHeight);
+    if ((blog_bodyHeight + blog_bodyPosition['top']) < view_areaHeight) {
         $('#blogbody').height(view_areaHeight - blog_bodyPosition['top']);
         $('#mainPart').height(blog_bodyPosition['top'] + $('#blogbody').height());
+        console.log("变更成功");
     }
 }
 $(document).ready(function () {
@@ -26,11 +30,10 @@ $(document).ready(function () {
 })
 $('.Navigate-button').bind('click', function () {
     let partId = $(this).attr('id');
-    console.log(partId);
     let content = partId.replace('-button', '');
-    console.log(content);
     $('#content > div').hide();
     $('#' + content).fadeIn(200);
+    Adjust_Size();
 })
 
 //Get_ArticleIntro();
