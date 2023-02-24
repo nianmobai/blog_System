@@ -1,6 +1,5 @@
 html,
 body {
-    height: 100%;
     margin: 0px;
 }
 
@@ -8,6 +7,7 @@ body {
     background-image: url('../PIC/blogpage02.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .flex {
@@ -22,6 +22,11 @@ body {
     flex-direction: column;
 }
 
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
 .border {
     border: solid 1px black;
 }
@@ -33,11 +38,13 @@ body {
 #leftNevigate {
     flex: 1;
     display: block;
+    height: max-content;
 }
 
 #mainPart {
     flex: 9;
     display: block;
+    overflow: hidden;
 }
 
 #blogHosterIntro {
@@ -116,4 +123,65 @@ body {
     justify-content: end;
     font-size: smaller;
     user-select: none;
+}
+
+#Hoster-Intro-Frame {
+    position: relative;
+    top: 70px;
+    left: 30px;
+    height: 530px;
+    width: 280px;
+    background-color: white;
+}
+
+#name-pic {
+    flex: 7;
+}
+
+#tag {
+    flex: 2;
+}
+
+#contactWay {
+    flex: 5;
+}
+
+#headpic {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+
+#name {
+    position: relative;
+    text-align: center;
+    font-size: 25px;
+    bottom: -20px;
+    height: 40px;
+    width: 150px;
+}
+
+.tag-label {
+    align-items: center;
+    height: 30px;
+    width: max-content;
+    display: flex;
+}
+
+.triangle {
+    height: 0px;
+    width: 0px;
+    border-left: 0px;
+    border-right: 13px;
+    border-bottom: 13px;
+    border-top: 13px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0) pink rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+}
+
+.tag-text {
+    text-align: center;
+    font-size: 8px;
+    height: 25.6px;
+    background-color: pink;
 }

@@ -1,0 +1,101 @@
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.border {
+    border: solid black 0.8px;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.flex-direction-row {
+    flex-direction: row;
+}
+
+.backgound-pic {
+    background: url('') no-repeat;
+    background-size: cover;
+}
+
+#top {
+    height: 75px;
+    background-color: rgba(30, 100, 255, 0.8);
+}
+
+#back {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#head_part {
+    flex: 2;
+}
+
+#search_part {
+    flex: 5;
+}
+
+#head_img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-clip: border-box;
+    background-image: url('');
+}
+
+#function-button {
+    flex: 1;
+}
+
+.icon {
+    margin: 2px;
+    height: 5px;
+    width: 30px;
+    background-color: white;
+}
+
+#content {
+    width: 100%;
+}
+
+.retrieval-model {
+    height: 100px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.pic {
+    flex: 3;
+    background-clip: border-box;
+}
+
+.context {
+    flex: 8;
+    justify-content: center;
+}
+
+.headline {
+    flex: 3;
+    justify-content: center;
+    font-size: large;
+}
+
+.other-data {
+    flex: 1;
+}
