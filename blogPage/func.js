@@ -1,21 +1,25 @@
 const Retrieval_model = '<div class="article-Retrieval border flex"><div class="article-pic border" ><img></div><div class="article-Intro flex-direction-column flex border"><div class="headline flex border"></div><div class="briefIntro border"></div><div class="time border flex"></div></div></div> ';
 const first_child_Element = '>.article-Retrieval:eq{0}';
-const tag_model = ' <div class="tag-label flex-direction-row"><div class="triangle"></div ><div class="tag-text flex flex-center">tagContent</div></div> '
-console.log("导入成功");
+const tag_model = " <div class='tag-label flex-direction-row'><div class='triangle'></div ><div class='tag-text flex flex-center'>tagContent</div></div>";
+const nullContentModle = " <div class='null-Content'>T.T 本版块没有内容</div>";
+//console.log("导入成功");
 $(document).ready(Adjust_Size());
+/**
+ * function: adjust the site of blogbody
+ */
 function Adjust_Size() {
     $('#blogbody').css('height', 'max-content');
     $('#mainPart').css('height', 'max-content');
     let blog_bodyPosition = $('#blogbody').offset();
     let blog_bodyHeight = $('#blogbody').height();
-    console.log("blogbody的高度" + blog_bodyHeight);
-    console.log("blogbody的偏移" + blog_bodyPosition['top']);
+    // console.log("blogbody的高度" + blog_bodyHeight);
+    //  console.log("blogbody的偏移" + blog_bodyPosition['top']);
     let view_areaHeight = $(document).height();
-    console.log("文档的高度" + view_areaHeight);
+    //console.log("文档的高度" + view_areaHeight);
     if ((blog_bodyHeight + blog_bodyPosition['top']) < view_areaHeight) {
         $('#blogbody').height(view_areaHeight - blog_bodyPosition['top']);
         $('#mainPart').height(blog_bodyPosition['top'] + $('#blogbody').height());
-        console.log("变更成功");
+        //console.log("变更成功");
     }
 }
 $(document).ready(function () {
@@ -36,7 +40,8 @@ $('.Navigate-button').bind('click', function () {
     Adjust_Size();
 })
 
-//Get_ArticleIntro();
+Get_ArticleIntro();
+Get_BloghosterInto();
 
 /**
  * function: check if  the path is exist 
@@ -112,9 +117,71 @@ function Get_ArticleIntro() {
         dataType: 'json',
         success: function (data, sttus) {
             let result = JSON.parse(data);
+            let count;
+            count['talking'] = 0;
+            count['javascript'] = 0;
+            count['php'] = 0;
+            count['works'] = 0;
+            count['galgame'] = 0;
             result.forEach((element, index) => {
-                Add_Retrieval(element);
+                switch (element.sort) {
+                    case "talking":
+                        Add_Retrieval(element);
+                        count['talking'] = 1;
+                        break;
+                    case "javascript":
+                        Add_Retrieval(element);
+                        count['javascript'] = 1;
+                        break;
+                    case "php":
+                        Add_Retrieval(element);
+                        count['php'] = 1;
+                        break;
+                    case "works":
+                        Add_Retrieval(element);
+                        count['works'] = 1;
+                        break;
+                    case "galgame":
+                        Add_Retrieval(element);
+                        count['galgame'] = 1;
+                        break;
+                    default:
+                        break;
+                }
             });
+            if (count['talking'] == 0) NullContentShow('talking');
+            if (count['javascript'] == 0) NullContentShow('javascript');
+            if (count['php'] == 0) NullContentShow('php');
+            if (count['works'] == 0) NullContentShow('works');
+            if (count['galgame'] == 0) NullContentShow('galgame');
         }
     })
+}
+function Get_BloghosterInto() {
+    $.ajax({
+        url: '',
+        type: 'GET',
+        contentType: 'json',
+        async: false,
+        success: function (data, status) {
+            let result = JSON.parse(data);
+            $('#name').text(result['name']);
+            $('#headpic').css('background-image', 'url(' + result['headpic_path'] + ")");
+            for (let index = 0; index < result['tag'].length && index < 6; index++) {
+                let element = result['tag'][index];
+                $('#tag').prpend(tag_model);
+                $('#tag>.tag-label:eq{0}>.tag-text').text(element);
+            }
+            $('#QQ-number').text("QQ号：" + result['contact_Way'].QQ);
+            $('#BliBliLink>a').href(result['contact_Way'].blibli);
+            $('#e-mail').text(result['contact_Way'].mail);
+        }
+    })
+}
+/**
+ * function: show an icon when there is no essay in this part
+ * @param {String} partname 
+ */
+function NullContentShow(partname) {
+    $("#" + partname).html(nullContentModle);
 }
