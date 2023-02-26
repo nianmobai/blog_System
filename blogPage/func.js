@@ -173,7 +173,7 @@ function Get_BloghosterInto() {
                 $('#tag>.tag-label:eq{0}>.tag-text').text(element);
             }
             $('#QQ-number').text("QQ号：" + result['contact_Way'].QQ);
-            $('#BliBliLink>a').href(result['contact_Way'].blibli);
+            $('#BliBliLink>a').text("B站链接").attr("href", result['contact_Way'].blibli);
             $('#e-mail').text(result['contact_Way'].mail);
         }
     })
