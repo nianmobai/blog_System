@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>念墨白的个人主页</title>
+    <style>
+        .headline {
+            color: rgb(98, 207, 216);
+            text-align: center;
+            background-color: antiquewhite;
+            font-size: 2vw;
+            border-radius: 10px;
+            margin-left: 35vw;
+            margin-right: 35vw;
+            background-repeat: no-repeat;
+            user-select: none;
+        }
+
+        .body {
+            background-repeat: no-repeat;
+            background-position: fixed;
+            background-size: 100% auto;
+            background-color: antiquewhite;
+        }
+
+        @font-face {
+            font-family: 'hl';
+            src: url("./font/fontstyleBear.ttf");
+        }
+
+        @font-face {
+            font-family: 'bu';
+            src: url('../font/musictype.ttf');
+        }
+
+        .start {
+            float: left;
+            background-color: white;
+            width: 8vw;
+            height: 6vw;
+            text-align: center;
+            color: aqua;
+            background-color: beige;
+            font-family: 'bu';
+            font-size: 2vw;
+            border: 2px solid aquamarine;
+            border-radius: 40% 0 40% 0;
+            line-height: 5.7vw;
+            user-select: none;
+            -webkit-user-select: none;
+            position: absolute;
+            top: 25vw;
+            left: 45%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <link src="">
+    <div class="realpage"></div>
+    <p class="headline">欢迎来到念墨白的个人空间</p>
+    <div class="start">
+        <b>Enter</b>
+    </div>
+    <script src="../sourcefile/jquery.min.js"></script>
+    <script src="../sourcefile/jquery.backstretch.min.js"></script>
+    <!--引用资源-->
+    <script type="text/javascript">
+        var position;
+        $(document).ready(
+            function () {
+                $('.start').hover(function () {
+                    $('.start').animate({ top: '-=0.4vw' }, 100);
+                }, function () {
+                    $('.start').stop().animate({ top: '25vw' }, 20);
+                })
+                $('.start').mousedown(function () {
+                    $('.start').css("transform-origin", "center center");
+                    $('.start').css("transform", "scale(1.02)");
+                })
+                $('.start').mouseup(function () {
+                    $('.start').css("transform-origin", "center center");
+                    $('.start').css("transform", "scale(1)");
+                })
+            })
+        /*循环导图*/
+        $.backstretch([
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite1.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite2.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite3.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite4.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite5.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite6.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite7.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite8.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite9.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite10.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite11.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite12.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite13.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite14.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite15.jpg",
+            "../PIC/enterPIC/bgofNIANMOBAIwebsite16.jpg",
+        ], {
+            fade: 1500,
+            duration: 4000
+        })
+        $('.start').bind('click', function changePage() {
+            window.location.href = '';
+        })
+    </script>
+</body>
+
+</html>
