@@ -1,8 +1,7 @@
 html,
 body {
-    height: 100%;
-    overflow: hidden;
     margin: 0px;
+    overflow: hidden;
 }
 
 .flex {
@@ -27,18 +26,17 @@ body {
 }
 
 .backgound-pic {
-    background: url('') no-repeat;
+    z-index: -1;
+    background: url('../PIC/mobileback.jpg') no-repeat;
     background-size: cover;
+    /*background virtualize*/
+    backdrop-filter: blur(0px);
 }
 
 #top {
     height: 75px;
-    background-color: rgba(30, 100, 255, 0.8);
-}
-
-#back {
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    background-color: rgba(169, 106, 106, 0.7);
 }
 
 #head_part {
@@ -47,6 +45,8 @@ body {
 
 #search_part {
     flex: 5;
+    border-right: 0.5px black solid;
+    border-left: 0.5px black solid;
 }
 
 #head_img {
@@ -54,7 +54,6 @@ body {
     width: 70px;
     border-radius: 50%;
     background-clip: border-box;
-    background-image: url('');
 }
 
 #function-button {
@@ -98,4 +97,149 @@ body {
 
 .other-data {
     flex: 1;
+}
+
+#navigate-back {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+#navigate-button {
+    position: absolute;
+    top: 75px;
+    right: 0px;
+    height: 200px;
+    width: 120px;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+#talking-button {
+    flex: 1;
+}
+
+#javascript-button {
+    flex: 1;
+}
+
+#php-button {
+    flex: 1;
+}
+
+#works-button {
+    flex: 1;
+}
+
+#galgame-button {
+    flex: 1;
+}
+
+#Bloghster-Intro {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    right: 100%;
+    width: 50%;
+    height: 45%;
+    border: solid 0.5px black;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#talking {
+    display: block;
+}
+
+#javascript {
+    display: none;
+}
+
+#php {
+    display: none;
+}
+
+#works {
+    display: none;
+}
+
+#galgame {
+    display: none;
+}
+
+#Introframe-head {
+    height: 100px;
+    width: 100px;
+    margin: 0px;
+    position: absolute;
+    border: solid black 0.3px;
+    border-radius: 50%;
+    /*horizontal Center*/
+    left: 50%;
+    /*to let the origin of headpic at the horizontal center*/
+    transform: translateX(-50%);
+    /*Vertical position*/
+    top: 15px;
+}
+
+#Introframe-name {
+    font-size: 25px;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+#tag {
+    position: absolute;
+    top: 155px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag-label {
+    align-items: center;
+    height: 25px;
+    display: flex;
+    margin-left: 2px;
+    margin-right: 5px;
+}
+
+.triangle {
+    margin: 0px;
+    height: 0px;
+    width: 0px;
+    border-left: 0px;
+    border-right: 10px;
+    border-bottom: 10px;
+    border-top: 10px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0) pink rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+}
+
+.tag-text {
+    text-align: center;
+    font-size: 5px;
+    height: 19px;
+    background-color: pink;
+    padding-right: 5px;
+    padding-left: 3px;
+}
+
+#contact-way {
+    position: absolute;
+    top: 240px;
+    font-size: 14px;
+    width: 100%;
+    padding-left: 5px;
 }

@@ -1,8 +1,17 @@
+//element model
+//
 const Retrieval_model = '<div class="article-Retrieval border flex"><div class="article-pic border" ><img></div><div class="article-Intro flex-direction-column flex border"><div class="headline flex border"></div><div class="briefIntro border"></div><div class="time border flex"></div></div></div> ';
 const first_child_Element = '>.article-Retrieval:eq{0}';
 const tag_model = " <div class='tag-label flex-direction-row'><div class='triangle'></div ><div class='tag-text flex flex-center'>tagContent</div></div>";
 const nullContentModle = " <div class='null-Content'>T.T 本版块没有内容</div>";
-//console.log("导入成功");
+//
+//Interface
+//
+//
+//const Value
+//
+//
+
 $(document).ready(Adjust_Size());
 /**
  * function: adjust the site of blogbody

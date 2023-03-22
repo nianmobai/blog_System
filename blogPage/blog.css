@@ -126,11 +126,11 @@ body {
 
 #Hoster-Intro-Frame {
     position: relative;
-    top: 70px;
-    left: 30px;
-    height: 530px;
-    width: 280px;
-    background-color: white;
+    top: 100px;
+    left: 50px;
+    height: 500px;
+    width: 230px;
+    background-color: rgb(255, 255, 255, 0.7);
 }
 
 #name-pic {
