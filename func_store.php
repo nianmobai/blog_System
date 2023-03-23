@@ -33,3 +33,52 @@ class Login
         return;
     }
 }
+
+/**
+ * 
+ */
+class ArtControl
+{
+    private $host = 'localhost';
+    private $db_password;
+    private $db_name;
+    private $db_usr;
+    public function GetArticle($name)
+    {
+        $sql = 'SELECT art_title,art_url,art_id FROM ART';
+        $result = null;
+        $connect = mysqli_connect($this->host, $this->db_usr, $this->db_password);
+        if ($connect == null) {
+            die('Error:' . mysqli_connect_error());
+        }
+        mysqli_select_db($connect, $this->db_name);
+        mysqli_query($connect, $sql, $result);
+        mysqli_fetch_all($result, MYSQL_BOTH);
+        return;
+    }
+    protected function DelArticle()
+    {
+    }
+    protected function AddArticle()
+    {
+    }
+    protected function ChangeArticle()
+    {
+    }
+}
+
+/**
+ * 
+ */
+class Monitor extends ArtControl
+{
+    public function Query(...$queryString)
+    {
+        if ($queryString == 'Add')
+            $this->AddArticle();
+        else if ($queryString == 'Del')
+            $this->DelArticle();
+        else if ($queryString == 'Change')
+            $this->ChangeArticle();
+    }
+}
