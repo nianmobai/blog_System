@@ -2,6 +2,17 @@
 function Get_BlogHosterInro()
 {
 }
+/**
+ *  function:turn to the target page
+ *  param:$url{string}
+ *  return:none
+ */
+function Turn_Page($url)
+{
+    echo "<script type='text/javascript'>";
+    echo "window.location.href = '$url'";
+    echo "</script>";
+}
 class Login
 {
     private $password = null;
@@ -9,16 +20,15 @@ class Login
     private $host = 'localhost';
     private $dbname_HosterIntro = '';
     private $db_password = '';
-
     public function __construct()
     {
-        $this->accountNum = Get_Account();
-        $this->password = Get_Pssword();
+        $this->accountNum = $this->Get_Account();
+        $this->password = $this->Get_Pssword();
     }
     public function Comfirm($ps, $ac)
     {
 
-        if ($ac == $this->accountNum && $ps == $this > password) {
+        if ($ac == $this->accountNum && $ps == $this->password) {
             //realize Page Turn
         } else {
             //throw error
@@ -34,9 +44,6 @@ class Login
     }
 }
 
-/**
- * 
- */
 class ArtControl
 {
     private $host = 'localhost';
@@ -46,15 +53,17 @@ class ArtControl
     public function GetArticle($name)
     {
         $sql = 'SELECT art_title,art_url,art_id FROM ART';
-        $result = null;
         $connect = mysqli_connect($this->host, $this->db_usr, $this->db_password);
         if ($connect == null) {
             die('Error:' . mysqli_connect_error());
         }
         mysqli_select_db($connect, $this->db_name);
-        mysqli_query($connect, $sql, $result);
-        mysqli_fetch_all($result, MYSQL_BOTH);
-        return;
+        $result = mysqli_query($connect, $sql);
+        if (!$result) { //if result is none
+            die('Error' . mysqli_error($connect));
+        }
+        $enddata = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $enddata;
     }
     protected function DelArticle()
     {
