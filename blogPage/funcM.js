@@ -1,6 +1,8 @@
 //element model
 //
 const Retrieval_model = '<div class="retrieval-model flex flex-direction-row border"><div class="pic border"><img src=""></div><div class="context flex flex-direction-column"> <div class="headline border flex"></div><div class="other-data border"></div></div></div > ';
+const Tag_model = '<div class="tag-label flex-direction-row"><div class="triangle" ></div><div class="tag-text flex flex-center"><p>PHP</p></div></div>';
+const nullContentModle = "";
 //
 //Interface
 //
@@ -72,8 +74,6 @@ document.addEventListener('touchstart', function (event) {
         if (event.target == head_img || parent.includes(head_img)) {
             let width_contamp = $('#Bloghster-Intro').width();
             $('#Bloghster-Intro').show().animate({ right: '-=' + width_contamp + 'px' }, 200);
-            console.log('Intro框的宽度为' + width_contamp);
-            Virtualize(Virtualize_param);
         }
     }
     else if ($('#navigate-button').is(':visible') && !$('#Bloghster-Intro').is(':visible')) {//Intro-part disappear and navigate-button appear
@@ -112,14 +112,39 @@ function Adjust_bodyHeight() {
  */
 function Get_BloghosterIntro() {
     $.ajax({
+        type: 'GET',
         url: Intro_Interface,
         async: false,
         success: function (data, status) {
             let result = JSON.parse(data);
-            $('#head_img').css('backgorund-image', "url(" + result['headpic_path'] + ")");
+            $('#head_img').css('backgorund-image', "url(" + result['headpic_path'] + ")");//add head picture
+            $('#Introframe-name').html(data['name']);//add name
+            Import_Tag(data['tag']);//add tag
+            $('#contact-way').text(data['contact_Way']);//rewrite the content in the contact way box 
+        },
+        error: function () {
+            alert("unknown error happen when getting blohoster intro");
         }
     })
 }
+
+function GetArticle() {
+    $.ajax({
+        type: 'POST',
+        url: Article_Interface,
+        data: "data",
+        dataType: "dataType",
+        success: function (response, status) {
+            //deal with the data
+            let data = JSON.parse(response);
+            if (reponse != null) Import_ArticleIntro(data);
+        },
+        error: function () {
+            alert("unkown error happen when getting the article intro");
+        }
+    });
+}
+
 /**
  * function: Get all the parent Node
  * @param {Element} node 
@@ -134,6 +159,7 @@ function Get_AllParentNode(node) {
     }
     return parent;
 }
+
 /**
  * function:adjust the opcity of top and content and body's backgroun-image
  * @param {int} opcity_param opcity the background when open the IntroFrame
@@ -142,4 +168,88 @@ function Virtualize(opcity_param) {
     $('#top').css('filter', 'blur(' + opcity_param + 'px)');
     $('body').css('backdrop-filter', 'blur(' + opcity_param + 'px)');
     $('#content').css('filter', 'blur(' + opcity_param + 'px)');
+}
+
+/**
+ * function:Import the tags from back side,put it into the tag element
+ * @param {Array} array_tag 
+ * return:none
+ */
+function Import_Tag(array_tag) {
+    array_tag.forEach(element => {
+        $('#tag').prepend(Tag_model);//add tag-lable element
+        $('#tag> :firstchild>.triangle>.tag-text>p').text(element);
+    });
+}
+
+/**
+ * 
+ * @param {arrary} array_art 
+ */
+function Import_ArticleIntro(array_art) {
+    let count;
+    count['talking'] = 0;
+    count['javascript'] = 0;
+    count['php'] = 0;
+    count['works'] = 0;
+    count['galgame'] = 0;
+    array_art.forEach(element => {
+        Add_Retrieval(element);
+        switch (element.sort) {
+            case "talking":
+                count['talking'] += 1;
+                break;
+            case "javascript":
+                count['javascript'] += 1;
+                break;
+            case "php":
+                count['php'] += 1;
+                break;
+            case "works":
+                count['works'] += 1;
+                break;
+            case "galgame":
+                count['galgame'] += 1;
+                break;
+            default:
+                break;
+        }
+    });
+    //check the part is "none article"
+    if (count['talking'] == 0) NullContentShow('talking');
+    if (count['javascript'] == 0) NullContentShow('javascript');
+    if (count['php'] == 0) NullContentShow('php');
+    if (count['works'] == 0) NullContentShow('works');
+    if (count['galgame'] == 0) NullContentShow('galgame');
+    //The elements of different subscripts in the array are equal to the number of articles in the corresponding category
+    //then check it and mark it if there is no article
+}
+
+function Add_Retrieval(art) {//depend on art's sort put it in corresponding div
+    $('#' + art.sort).prepend(Retrieval_model);
+    let element_new = $('#' + art.sort + '>:firstchild');//new element
+    if (element_new != null) {
+        element_new.find('.pic').css('background-image', "url('" + art['essaypic_path'] + "')");
+        element_new.find('.headline').text(art['headline']).bind('touchstart', TurnToEssayPage(art['id']));
+        element_new.find('.other-data').text(art['time']);
+    }
+    else console.log("error when getting the node element newed,return null");
+}
+
+/**
+ * function:binded function to the article div,param is the id of the essay we click or touch
+ * @param {string} art_id 
+ */
+function TurnToEssayPage(art_id) {
+    if (art_id == null) {
+        console.log("findding error:can't get ");
+    }
+}
+
+/**
+ * function:tmport the special module when te part(id)  have no essay
+ * @param {string} part_name
+ */
+function NullContentShow(part_name) {
+    $('#' + part_name).html(nullContentModle);
 }

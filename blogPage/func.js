@@ -87,10 +87,6 @@ $('#headpic').hover(
         $.ajax({
             url: '../index.php',
             async: false,
-            /*test:
-            sucess: function (data) {
-                console.log(data);
-            },*/
             error: function () {
                 console.log('link error')
             }
@@ -133,26 +129,22 @@ function Get_ArticleIntro() {
             count['works'] = 0;
             count['galgame'] = 0;
             result.forEach((element, index) => {
+                Add_Retrieval(element);
                 switch (element.sort) {
                     case "talking":
-                        Add_Retrieval(element);
-                        count['talking'] = 1;
+                        count['talking'] += 1;
                         break;
                     case "javascript":
-                        Add_Retrieval(element);
-                        count['javascript'] = 1;
+                        count['javascript'] += 1;
                         break;
                     case "php":
-                        Add_Retrieval(element);
-                        count['php'] = 1;
+                        count['php'] += 1;
                         break;
                     case "works":
-                        Add_Retrieval(element);
-                        count['works'] = 1;
+                        count['works'] += 1;
                         break;
                     case "galgame":
-                        Add_Retrieval(element);
-                        count['galgame'] = 1;
+                        count['galgame'] += 1;
                         break;
                     default:
                         break;
