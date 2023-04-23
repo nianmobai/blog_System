@@ -4,7 +4,7 @@ body {
 }
 
 .global-blog-background-img {
-    background-image: url('../PIC/blogpage02.jpg');
+    background-image: url('../../PIC/blogpage02.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -53,9 +53,9 @@ body {
 
 #blogbody {
     position: relative;
-    top: 40px;
+    top: 60px;
     background-color: rgba(255, 255, 255, 0.6);
-    width: 100%;
+    width: 95%;
 }
 
 #navigate {
@@ -211,4 +211,35 @@ body {
     position: relative;
     top: 50px;
     left: 30%;
+}
+
+#search_part {
+    height: 50px;
+    width: 60%;
+    position: relative;
+    top: 30px;
+    border-radius: 15px;
+    background-color: rgba(0, 255, 255, 0.4);
+    align-items: center;
+}
+
+#search_button {
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.6);
+    border-radius: 15px 15px;
+    border: none;
+    width: 100px;
+    margin: 0px;
+    box-shadow: none;
+    outline: none;
+}
+
+#search_icon {
+    scale: 2;
+}
+
+#search_input {
+    height: 30px;
+    width: 60%;
+    margin-left: 20px;
 }
