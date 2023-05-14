@@ -83,7 +83,7 @@ $('#headpic').hover(
     function () {
         $(this).css('transform', 'scale(1)');
     }).bind('click', function () {
-        window.location.href = '../login/signIn.html';
+        window.location.href = './login/signIn.html';
         $.ajax({
             url: '../index.php',
             async: false,
