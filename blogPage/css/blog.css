@@ -36,13 +36,13 @@ body {
 }
 
 #leftNevigate {
-    flex: 1;
+    flex: 2;
     display: block;
     height: max-content;
 }
 
 #mainPart {
-    flex: 9;
+    flex: 8;
     display: block;
 }
 
@@ -53,23 +53,26 @@ body {
 
 #blogbody {
     position: relative;
-    top: 60px;
-    background-color: rgba(255, 255, 255, 0.6);
-    width: 95%;
+    top: 50px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 98%;
 }
 
 #navigate {
     width: 100%;
     height: 60px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 0, 0, 0.5);
 }
 
 .Navigate-button {
     flex: 1;
+    margin: 3px;
     text-align: center;
-    line-height: 63px;
+    border: 0.3px solid black;
     font-size: 18px;
+    border-radius: 18px;
     user-select: none;
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .full-width {
@@ -125,16 +128,18 @@ body {
 }
 
 #Hoster-Intro-Frame {
-    position: relative;
-    top: 100px;
-    left: 50px;
+    position: fixed;
+    top: 80px;
+    left: 1180px;
     height: 500px;
     width: 230px;
+    border-radius: 25px;
     background-color: rgb(255, 255, 255, 0.7);
 }
 
 #name-pic {
     flex: 7;
+    border-radius: 25px 25px 0px 0px;
 }
 
 #tag {
@@ -143,6 +148,7 @@ body {
 
 #contactWay {
     flex: 5;
+    border-radius: 0px 0px 25px 25px;
 }
 
 #headpic {

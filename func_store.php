@@ -13,6 +13,7 @@ function Turn_Page($url)
     echo "window.location.href = '$url'";
     echo "</script>";
 }
+
 class Login
 {
     private $password = null;
