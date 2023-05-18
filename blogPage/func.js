@@ -12,6 +12,9 @@ const nullContentModle = " <div class='null-Content'>T.T 本版块没有内容</
 //
 //
 
+//global value
+let last_button = 'talking-button';
+
 $(document).ready(Adjust_Size());
 /**
  * function: adjust the site of blogbody
@@ -44,6 +47,9 @@ $(document).ready(function () {
 $('.Navigate-button').bind('click', function () {
     let partId = $(this).attr('id');
     let content = partId.replace('-button', '');
+    if(last_button != null)$('#' + last_button).css('box-shadow','inset -2px -5px rgba(0,0,0,0.4)');
+    $(this).css('box-shadow','unset');
+    last_button = partId;
     $('#content > div').hide();
     $('#' + content).fadeIn(200);
     Adjust_Size();
