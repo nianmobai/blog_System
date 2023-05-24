@@ -7,6 +7,8 @@ const nullContentModle = " <div class='null-Content'>T.T 本版块没有内容</
 //
 //Interface
 //
+const Intro_Interface = '';
+const Article_Interface = '';
 //
 //const Value
 //
@@ -117,6 +119,7 @@ function Add_Retrieval(article) {
     $('#' + article.sort + first_child_Element + ' .briefIntro').text(article.briefIntro);
     $('#' + article.sort + first_child_Element + ' .time').text(article.time);
 }
+
 /**
  * function: get all data of article if it is exist
  */
