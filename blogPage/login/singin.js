@@ -40,12 +40,16 @@ function PutMessage(login_left) {
         script:null,
         error_mes:null
     };
+
     let account_input = null;
     let password_input = null;
+
     account_input = $('#ac-input').val();
     password_input = $('#ps-input').val();
+
     console.log('账号为' + account_input);
     console.log('密码为' + password_input);
+
     if (account_input == null || account_input == "") {//
         Notice("请输入登录账号");
         return;
@@ -55,10 +59,17 @@ function PutMessage(login_left) {
         return;
     }
     else {
+        let package_login = {
+            account:null,
+            password:null
+        }
+        package_login["account"] = account_input;
+        package_login["password"] = password_input;
+
         $.ajax({
             type: "POST",
             url: Login_Interface,
-            data: "data",
+            data: JSON.stringify(package_login),
             dataType: "dataType",
             success: function (data, status) {
                 let response = JSON.parse(data);

@@ -59,11 +59,15 @@ function Initial(mysqli $con){
  *  param:$url{string}
  *  return:none
  */
-function Turn_Page(string $url)
+function Turn_Page(string $url) : bool
 {
-    echo "<script type='text/javascript'>";
-    echo "window.location.href = '$url'";
-    echo "</script>";
+    if($url == "" || $url == null)return false;
+    else {
+        echo "<script type='text/javascript'>";
+        echo "window.location.href = '$url'";
+        echo "</script>";
+        return true;
+    }
 }
 
 class Login
@@ -81,7 +85,7 @@ class Login
         $this->password = $this->Get_Pssword($connect);
         $connect->close();
     }
-    public function Comfirm(string $ps,string $ac)
+     public function Comfirm(string $ps,string $ac) : bool
     {
         if ($ac == $this->accountNum && $ps == $this->password) {
             return true;
@@ -90,13 +94,13 @@ class Login
             return false;
         }
     }
-    private function Get_Account(mysqli $con)
+    private function Get_Account(mysqli $con) : string
     {//get the account from database
-        return;
+        return "null";
     }
-    private function Get_Pssword(mysqli $con)
+    private function Get_Pssword(mysqli $con) : string
     {//get the password from database
-        return;
+        return "null";
     }
 }
 
@@ -106,19 +110,19 @@ class LoginData{
     protected $usrpassword = '123456';
     protected $db_name = 'blog';
 
-    public function __gethost()
+    public function __gethost() : string
     {
         return $this->host;
     }
-    public function __getusrname()
+    public function __getusrname() : string
     {
         return $this->usrname;
     }
-    public function __getusrpassword()
+    public function __getusrpassword() : string
     {
         return $this->usrpassword;
     }
-    public function __getdbname()
+    public function __getdbname() : string
     {
         return $this->db_name;
     }

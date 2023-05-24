@@ -1,7 +1,6 @@
 <?php
 include '../blog_System/func_store.php';
-CheckHealth();
+if($set) CheckHealth();
 $url = "blogPage/blog.html";
 Turn_Page($url);
-
 ?>
