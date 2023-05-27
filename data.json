@@ -24,9 +24,9 @@
         }
     },
     "logindata":{
-        "result":null,
-        "status":null,
-        "script":null,
-        "left":0
+        "lr":"返回结果true or false",
+        "status":"错误结果",
+        "script":"代码段",
+        "left":"剩余次数"
     }
 }

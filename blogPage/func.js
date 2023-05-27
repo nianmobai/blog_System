@@ -36,6 +36,10 @@ function Adjust_Size() {
         //console.log("变更成功");
     }
 }
+
+/**
+ * negative button style
+ */
 $(document).ready(function () {
     $('.Navigate-button').hover(
         function () {
@@ -57,8 +61,8 @@ $('.Navigate-button').bind('click', function () {
     Adjust_Size();
 })
 
-Get_ArticleIntro();
-Get_BloghosterInto();
+/*Get_ArticleIntro();
+Get_BloghosterInto();*/
 
 /**
  * function: check if  the path is exist 
@@ -167,6 +171,7 @@ function Get_ArticleIntro() {
         }
     })
 }
+
 function Get_BloghosterInto() {
     $.ajax({
         url: '',
@@ -188,6 +193,7 @@ function Get_BloghosterInto() {
         }
     })
 }
+
 /**
  * function: show an icon when there is no essay in this part
  * @param {String} partname 

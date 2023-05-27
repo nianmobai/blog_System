@@ -1,4 +1,7 @@
 <?php
+
+define( $LOGIN_NOERROR ,0);
+
 function Get_BlogHosterInro()
 {
 }
@@ -61,7 +64,10 @@ function Initial(mysqli $con){
  */
 function Turn_Page(string $url) : bool
 {
-    if($url == "" || $url == null)return false;
+    if($url == "" || $url == null){
+        //die('url wrong ,cant turn to the  page');
+        return false;
+    }
     else {
         echo "<script type='text/javascript'>";
         echo "window.location.href = '$url'";
@@ -133,12 +139,12 @@ class ArtControl extends LoginData
 {
     public function GetArticle(string $name)
     {
+        $logindata = new LoginData();
         $sql = 'SELECT art_title,art_url,art_id FROM ART';
-        $connect = mysqli_connect($this->host, $this->usrname, $this->usrpassword, $this->usrname);
+        $connect = mysqli_connect($logindata->__gethost(), $logindata->__getusrname(), $logindata->__getusrpassword(), $logindata->__getdbname());
         if ($connect == null) {
             die('Error:' . mysqli_connect_error());
         }
-        mysqli_select_db($connect, $this->db_name);
         $result = mysqli_query($connect, $sql);
         if (!$result) { //if result is none
             die('Error:' . mysqli_error($connect));
@@ -154,5 +160,18 @@ class ArtControl extends LoginData
     }
     protected function ChangeArticle()
     {
+    }
+}
+
+class result{
+    public $lr;
+    public $status;
+    public $script;
+    public $errormes;
+    public $left = 5;
+    private $con_url = "";
+    public function __get_conurl() : string
+    {
+        return $this->con_url;
     }
 }
