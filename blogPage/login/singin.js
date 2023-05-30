@@ -13,24 +13,10 @@ $('#confirm').bind('click', function () {
     $(this).css('background-color', 'white');
 });
 
-function Message(target) { //get the login numbers
-    let num = 5;
-    $.ajax({
-        type: "POST",
-        url: "url",
-        data: JSON.stringify(num),
-        dataType: "json",
-        success: function (data, status) {
-            num = JSON.parse(data);
-        }
-    });
-    return num;
-}
-
 function PutMessage(login_left) {
     console.log('putmessage');
     if (login_left <= 0) {
-        Notice("登录失败超过五次，请半小时后再次尝试");
+        Notice("登录失败超过五次，请一小时后再次尝试");
         return;
     }
     //begin login
@@ -63,6 +49,8 @@ function PutMessage(login_left) {
             account:null,
             password:null
         }
+
+        //packed
         package_login["account"] = account_input;
         package_login["password"] = password_input;
 
@@ -74,7 +62,6 @@ function PutMessage(login_left) {
             success: function (data, status) {
                 let response = JSON.parse(data);
                 login_result['lr'] = response['result'];
-                login_result['status'] = response['status'];
                 login_result['script'] = response['script'];
                 login_result['left'] = response['left'];
                 if (login_result['lr'] == true) { //login successfully
@@ -83,14 +70,16 @@ function PutMessage(login_left) {
                     func();//change page
                 }
                 else { //login failed
-                    Notice("登录失败，账号或密码错误，还有" + login_result['left'] + "次");
+                    if(login_result['error_mes'] == 1){
+                        Notice("用户不存在，还有" + login_result['left'] + "次机会");
+                    }
+                    else if(login_result['error_mes'] == 2){
+                        Notice("密码错误，还有" + login_result['left'] + "次机会");
+                    }
                 }
             },
             error:function(){
-                login_result['lr'] = false;
-                login_result['script'] = null;
-                login_result['left'] = login_left;//left states the same value
-                login_result['error_mes'] = 'link error';
+               alert("服务器错误");
             }
         });
     }
@@ -114,7 +103,7 @@ function Get_LoginFrequencyLeft() {
             num = JSON.parse(response);
         },
         error:function(){
-            num = 5;
+            alert("服务器连接错误");
         }
     });
     return num;

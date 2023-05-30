@@ -1,7 +1,5 @@
 <?php
 
-define( $LOGIN_NOERROR ,0);
-
 function Get_BlogHosterInro()
 {
 }
@@ -78,8 +76,8 @@ function Turn_Page(string $url) : bool
 
 class Login
 {
-    private $password = '';
-    private $accountNum = null;
+    private $password = "";
+    private $accountNum = "";
     public function __construct()
     {
         $link = new LoginData();
@@ -91,28 +89,68 @@ class Login
         $this->password = $this->Get_Pssword($connect);
         $connect->close();
     }
-     public function Comfirm(string $ps,string $ac) : bool
+
+    public function __get_left() : int
     {
-        if ($ac == $this->accountNum && $ps == $this->password) {
-            return true;
-        } else {
-            //throw error
+        session_start();
+        if(isset($_SESSION['left'])) return $_SESSION['left'];
+        else{
+            $_SESSION['left'] = 5;
+            session_write_close();
+            return 0;
+        }
+    }
+
+    public function __set_left_decre() : bool
+    {
+        session_start();
+        if(isset($_SESSION['left']))
+        { $_SESSION['left'] -= 1;
+        session_write_close();
+        return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function Comfirm(string $ps,string $ac, &$error_mes) : bool
+    {
+        if($ac == $this->accountNum){
+            if($ps == $this->password){
+                $error_mes = 0;
+                return true;
+            }
+            else{
+                $error_mes = 2;
+                return false;
+            }
+        }
+        else{
+            $error_mes = 1;
             return false;
         }
     }
     private function Get_Account(mysqli $con) : string
     {//get the account from database
-        return "null";
+        $sql = "SELECT usr_account FROM usr";
+        $ac = $con->query($sql);
+        if($ac == null)die("error\n");
+        return $ac;
     }
     private function Get_Pssword(mysqli $con) : string
     {//get the password from database
-        return "null";
+        $sql = "SELECT usr_password FROM usr";
+        $ps = $con->query($sql);
+        if($ps == null) die("error\n");
+        return $ps;
     }
 }
 
 class LoginData{
     protected $host = 'localhost';
-    protected $usrname = 'dd';
+    protected $usrname = 'zsj';
     protected $usrpassword = '123456';
     protected $db_name = 'blog';
 
@@ -165,13 +203,7 @@ class ArtControl extends LoginData
 
 class result{
     public $lr;
-    public $status;
     public $script;
     public $errormes;
-    public $left = 5;
-    private $con_url = "";
-    public function __get_conurl() : string
-    {
-        return $this->con_url;
-    }
+    public $left;
 }
