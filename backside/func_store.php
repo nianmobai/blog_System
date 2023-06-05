@@ -63,7 +63,7 @@ function Initial(mysqli $con){
 function Turn_Page(string $url) : bool
 {
     if($url == "" || $url == null){
-        //die('url wrong ,cant turn to the  page');
+        die('url wrong ,cant turn to the  page');
         return false;
     }
     else {
@@ -76,8 +76,8 @@ function Turn_Page(string $url) : bool
 
 class Login
 {
-    private $password = "";
-    private $accountNum = "";
+    private $password;
+    private $accountNum;
     public function __construct()
     {
         $link = new LoginData();
@@ -92,20 +92,24 @@ class Login
 
     public function __get_left() : int
     {
+        return $_SESSION['left'];
+    }
+
+    public function __reset_left() : bool
+    {
         session_start();
-        if(isset($_SESSION['left'])) return $_SESSION['left'];
-        else{
-            $_SESSION['left'] = 5;
-            session_write_close();
-            return 0;
-        }
+        if(isset($_SESSION['left']))return false;
+        $_SESSION['left'] = 5;
+        session_write_close();//save session
+        return true;
     }
 
     public function __set_left_decre() : bool
     {
         session_start();
         if(isset($_SESSION['left']))
-        { $_SESSION['left'] -= 1;
+        { 
+        $_SESSION['left'] -= 1;
         session_write_close();
         return true;
         }

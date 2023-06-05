@@ -1,6 +1,6 @@
 //get the num login
-const Login_Interface = '';
-const Login_Frequency_Interface = '';
+const Login_Interface = '../../backside/login/login.php';
+const Login_Frequency_Interface = '../../backside/login/getltft.php';
 
 $('#confirm').bind('click', function () {
     let num = Get_LoginFrequencyLeft();
@@ -14,7 +14,7 @@ $('#confirm').bind('click', function () {
 });
 
 function PutMessage(login_left) {
-    console.log('putmessage');
+    //console.log('putmessage');
     if (login_left <= 0) {
         Notice("登录失败超过五次，请一小时后再次尝试");
         return;
@@ -27,14 +27,16 @@ function PutMessage(login_left) {
         error_mes:null
     };
 
-    let account_input = null;
-    let password_input = null;
+    let account_input = new String;
+    let password_input = new String;
 
     account_input = $('#ac-input').val();
     password_input = $('#ps-input').val();
 
-    console.log('账号为' + account_input);
-    console.log('密码为' + password_input);
+    if(account_input.length > 15 || password_input.length > 15){
+        Notice("格式错误，请输入15位以内的账号和密码");
+        return;
+    }
 
     if (account_input == null || account_input == "") {//
         Notice("请输入登录账号");
@@ -58,7 +60,7 @@ function PutMessage(login_left) {
             type: "POST",
             url: Login_Interface,
             data: JSON.stringify(package_login),
-            dataType: "dataType",
+            dataType: "json",
             success: function (data, status) {
                 let response = JSON.parse(data);
                 login_result['lr'] = response['result'];
@@ -79,7 +81,7 @@ function PutMessage(login_left) {
                 }
             },
             error:function(){
-               alert("服务器错误");
+               alert("登录文件获取错误");
             }
         });
     }
@@ -87,23 +89,24 @@ function PutMessage(login_left) {
 }
 
 function Notice(mes) {
-    console.log("message output:" + mes);
+    //console.log("message output:" + mes);
     $('#notice').text(mes).animate({ opacity: 1 }, 500);
     setTimeout(function () { $('#notice').animate({ opacity: 0 }, 500); }, 1500);
     return;
 }
 
 function Get_LoginFrequencyLeft() {
-    let num = 5;//default value
+    let num;
     $.ajax({
         type: "GET",
         url: Login_Frequency_Interface,
-        dataType: "text",
+        dataType: "json",
         success: function (response) {
             num = JSON.parse(response);
+            console.log("剩余登录次数" + num);
         },
         error:function(){
-            alert("服务器连接错误");
+            alert("剩余次数获取出现错误");
         }
     });
     return num;

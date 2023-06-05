@@ -4,7 +4,6 @@ $login = new Login();
 $logindata = file_get_contents('php://input');
 $sign = json_decode($logindata['login']);//login data posted by forward
 $confirm_result =  $login->Comfirm($sign["account"], $sign["password"], $error_mes);//comfirm the account and password
-
 $login_result = new result;
 
 if($confirm_result == true){
@@ -14,9 +13,10 @@ if($confirm_result == true){
     $login_result->script = "window.location.href = '$url'";//jump page order
     $login_result->errormes = $error_mes;
 }
+
 else{
     //login false
-    $login->__set_left_decre();
+    $login->__set_left_decre();//declare left times
     $login_result->lr = false;
     $login_result->script = "";
     $login_result->errormes = $error_mes;
