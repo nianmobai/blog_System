@@ -19,6 +19,7 @@ function PutMessage(login_left) {
         Notice("登录失败超过五次，请一小时后再次尝试");
         return;
     }
+
     //begin login
     let login_result = {
         lr:null,
@@ -60,28 +61,33 @@ function PutMessage(login_left) {
             type: "POST",
             url: Login_Interface,
             data: JSON.stringify(package_login),
-            dataType: "json",
-            success: function (data, status) {
-                let response = JSON.parse(data);
-                login_result['lr'] = response['result'];
-                login_result['script'] = response['script'];
-                login_result['left'] = response['left'];
-                if (login_result['lr'] == true) { //login successfully
+            async:false,
+            success: function (response,status) {
+                let data = JSON.parse(response);
+                console.log(data);
+
+                if (data['lr'] == true) { //login successfully
                     //run the script conveyed by backside
-                    let func = new Function(login_result['script']);
+                    console.log("登录成功");
+                    let func = new Function(data['script']);
                     func();//change page
                 }
                 else { //login failed
-                    if(login_result['error_mes'] == 1){
-                        Notice("用户不存在，还有" + login_result['left'] + "次机会");
+                    if(data['left'] == 0){
+                        Notice("登录失败超过五次，请一小时后再次尝试");
+                        return;
                     }
-                    else if(login_result['error_mes'] == 2){
-                        Notice("密码错误，还有" + login_result['left'] + "次机会");
+                    
+                    if(data['errormes'] == 1){
+                        Notice("用户不存在，还有" + data['left'] + "次机会");
+                    }
+                    else if(data['errormes'] == 2){
+                        Notice("密码错误，还有" + data['left'] + "次机会");
                     }
                 }
             },
-            error:function(){
-               alert("登录文件获取错误");
+            error:function(error){
+            console.log("登录文件获取失败");
             }
         });
     }
@@ -101,6 +107,7 @@ function Get_LoginFrequencyLeft() {
         type: "GET",
         url: Login_Frequency_Interface,
         dataType: "json",
+        async:false,
         success: function (response) {
             num = JSON.parse(response);
             console.log("剩余登录次数" + num);

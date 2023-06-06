@@ -1,9 +1,10 @@
 <?php
-include "./func_store.php";
+include "../func_store.php";
+
 $login = new Login();
 $logindata = file_get_contents('php://input');
-$sign = json_decode($logindata['login']);//login data posted by forward
-$confirm_result =  $login->Comfirm($sign["account"], $sign["password"], $error_mes);//comfirm the account and password
+$sign = json_decode($logindata, true);
+$confirm_result =  $login->Comfirm($sign['account'], $sign['password'], $error_mes);//comfirm the account and password
 $login_result = new result;
 
 if($confirm_result == true){
@@ -12,6 +13,7 @@ if($confirm_result == true){
     $url = "/control/c.html";//control page url
     $login_result->script = "window.location.href = '$url'";//jump page order
     $login_result->errormes = $error_mes;
+    $login->__reset_left();
 }
 
 else{
@@ -23,6 +25,7 @@ else{
     $login_result->left = $login->__get_left();//get the loginnums left
 }
 
-$end = json_encode($login_result, JSON_FORCE_OBJECT);
+$end = json_encode($login_result);
 echo $end;
+
 ?>

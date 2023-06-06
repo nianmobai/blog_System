@@ -90,6 +90,15 @@ class Login
         $connect->close();
     }
 
+    public function __getps()
+    {
+        return $this->password;
+    }
+    public function __getac()
+    {
+        return $this->accountNum;
+    }
+
     public function __get_left() : int
     {
         return $_SESSION['left'];
@@ -98,7 +107,6 @@ class Login
     public function __reset_left() : bool
     {
         session_start();
-        if(isset($_SESSION['left']))return false;
         $_SESSION['left'] = 5;
         session_write_close();//save session
         return true;
@@ -119,7 +127,7 @@ class Login
         }
     }
 
-    public function Comfirm(string $ps,string $ac, &$error_mes) : bool
+    public function Comfirm(string $ac,string $ps, &$error_mes) : bool
     {
         if($ac == $this->accountNum){
             if($ps == $this->password){
@@ -136,27 +144,31 @@ class Login
             return false;
         }
     }
+
     private function Get_Account(mysqli $con) : string
     {//get the account from database
         $sql = "SELECT usr_account FROM usr";
-        $ac = $con->query($sql);
-        if($ac == null)die("error\n");
-        return $ac;
+        $ac = mysqli_query($con, $sql);
+        $ac = $ac->fetch_array();
+        if($ac == null)die("error");
+        return $ac[0];
     }
+
     private function Get_Pssword(mysqli $con) : string
     {//get the password from database
         $sql = "SELECT usr_password FROM usr";
-        $ps = $con->query($sql);
-        if($ps == null) die("error\n");
-        return $ps;
+        $ps = mysqli_query($con, $sql);
+        $ps = $ps->fetch_array();
+        if($ps == null)die("error");
+        return $ps[0];
     }
 }
 
 class LoginData{
-    protected $host = 'localhost';
-    protected $usrname = 'zsj';
-    protected $usrpassword = '123456';
-    protected $db_name = 'blog';
+    private $host = 'localhost';
+    private $usrname = 'zsj';
+    private $usrpassword = '123456';
+    private $db_name = 'blog';
 
     public function __gethost() : string
     {

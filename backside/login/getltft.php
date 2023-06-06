@@ -1,6 +1,6 @@
 <?php
 session_start();
-$left;
+$left = 5;
 $hour = 3600; 
 //the left num is saved in the session
 if(isset($_SESSION['left'])){
