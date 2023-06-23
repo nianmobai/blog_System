@@ -1,6 +1,6 @@
 <?php
 include "../func_store.php";
-
+$seven_days_time = 3600 * 24 * 7;
 $login = new Login();
 $logindata = file_get_contents('php://input');
 $sign = json_decode($logindata, true);
@@ -13,7 +13,11 @@ if($confirm_result == true){
     $url = "/control/c.html";//control page url
     $login_result->script = "window.location.href = '$url'";//jump page order
     $login_result->errormes = $error_mes;
-    $login->__reset_left();
+    
+    session_start();
+    $_SESSION['admin'] = true;
+    session_set_cookie_params($seven_days_time);//set life time
+    session_write_close();
 }
 
 else{
@@ -24,6 +28,7 @@ else{
     $login_result->errormes = $error_mes;
     $login_result->left = $login->__get_left();//get the loginnums left
 }
+
 
 $end = json_encode($login_result);
 echo $end;

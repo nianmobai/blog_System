@@ -1,6 +1,9 @@
 //get the num login
 const Login_Interface = '../../backside/login/login.php';
 const Login_Frequency_Interface = '../../backside/login/getltft.php';
+const Auto_Login_Interface = '';
+
+Auto_login();
 
 $('#confirm').bind('click', function () {
     let num = Get_LoginFrequencyLeft();
@@ -117,4 +120,12 @@ function Get_LoginFrequencyLeft() {
         }
     });
     return num;
+}
+
+function Auto_login(){
+$.ajax({
+    type: "POST",
+    url: Auto_Login_Interface,
+    async: false
+});
 }
