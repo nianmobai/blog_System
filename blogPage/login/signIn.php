@@ -1,3 +1,14 @@
+<?php
+session_start();
+    if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
+        header($url);
+    }
+    else{
+        $_SESSION['admin'] = false;
+        echo "<script type='text/javascript'>console.log('auto log in fail');</script>";
+    }
+    session_write_close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 

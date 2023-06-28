@@ -3,8 +3,6 @@ const Login_Interface = '../../backside/login/login.php';
 const Login_Frequency_Interface = '../../backside/login/getltft.php';
 const Auto_Login_Interface = '';
 
-Auto_login();
-
 $('#confirm').bind('click', function () {
     let num = Get_LoginFrequencyLeft();
     PutMessage(num);
@@ -90,7 +88,8 @@ function PutMessage(login_left) {
                 }
             },
             error:function(error){
-            console.log("登录文件获取失败");
+            Notice("服务器链接错误：10001");
+            //console.log("获取登录我文件错误");
             }
         });
     }
@@ -116,16 +115,9 @@ function Get_LoginFrequencyLeft() {
             console.log("剩余登录次数" + num);
         },
         error:function(){
-            alert("剩余次数获取出现错误");
+           Notice("服务器链接错误：10001");
+           //console.log("获取剩余登录次数文件错误");
         }
     });
     return num;
-}
-
-function Auto_login(){
-$.ajax({
-    type: "POST",
-    url: Auto_Login_Interface,
-    async: false
-});
 }
