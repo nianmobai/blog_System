@@ -30,7 +30,7 @@ function CheckHealth()
         //initial
         echo "不存在,创建数据库";
         Initial($test);
-        //再初始化两个表
+        //initialize two charps
     }
     $test->close();
     return;
@@ -181,9 +181,20 @@ class LoginData
 
 class Vistor
 {
-    public function Get_ArticleContent($id)
+    public function Get_ArticleContent($id, $url)
     {
-
+        if ($id == null || $url == null) {
+            die("void id or url");
+        }
+        $link_data = new LoginData();
+        $con = new mysqli($link_data->__gethost(), $link_data->__getusrname(), $link_data->__getusrpassword());
+        if ($con == null) {
+            die("severice link error");
+        }
+        if ($con->select_db($link_data->__getdbname()) == false) {
+            die("datbase link error");
+        }
+        $sql = "SELECT id,title";
     }
 }
 
@@ -192,17 +203,6 @@ class ArtControl extends LoginData
     public function GetAllArticle(string $name)
     {
         $logindata = new LoginData();
-        $sql = 'SELECT art_title,art_url,art_id FROM ART';
-        $connect = mysqli_connect($logindata->__gethost(), $logindata->__getusrname(), $logindata->__getusrpassword(), $logindata->__getdbname());
-        if ($connect == null) {
-            die('Error:' . mysqli_connect_error());
-        }
-        $result = mysqli_query($connect, $sql);
-        if (!$result) { //if result is none
-            die('Error:' . mysqli_error($connect));
-        }
-        $enddata = mysqli_fetch_all($result, MYSQLI_ASSOC); //connected with array
-        return $enddata;
     }
 
     protected function DelArticle()

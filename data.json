@@ -1,12 +1,14 @@
 {
     "article": [
         {
+            "art_id": "test",
             "sort": "talking javascript php works galgame",
-            "essaypic_path": "test",
             "headline": "test",
             "essay_path": "test",
+            "essaypic_path": "test",
             "briefIntro": "test",
-            "time": "test"
+            "create_time": "test",
+            "lastchange_time": "test"
         }
     ],
     "personal": {
@@ -23,10 +25,10 @@
             "mail": "test"
         }
     },
-    "logindata":{
-        "lr":"返回结果true or false",
-        "status":"错误结果",
-        "script":"代码段",
-        "left":"剩余次数"
+    "logindata": {
+        "lr": "返回结果true or false",
+        "status": "错误结果",
+        "script": "代码段",
+        "left": "剩余次数"
     }
 }
