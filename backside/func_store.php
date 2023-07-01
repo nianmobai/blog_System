@@ -157,6 +157,23 @@ class LoginData
 
 class Vistor
 {
+    public function Get_ArtIntro()
+    {
+        //art_id,headline,sort,essaypic_path,briefIntro,create_time
+        //TODO
+        $db_link = new LoginData();
+        $con = new mysqli($db_link->__gethost(), $db_link->__getusrname(), $db_link->__getusrpassword());
+        if ($con == null) {
+            die("sever link error");
+        }
+        if ($con->select_db($db_link->__getdbname()) == false)
+            die("database select error");
+        $sql = "SELECT art_id,headline,sort,essaypic_path,briefIntro,create_time FROM usr";
+        $result_org = $con->query($sql);
+        $result_ary = mysqli_fetch_array($result_org);
+        return $result_ary;
+    }
+
     public function Get_ArticleUrl($id, &$url)
     {
         if ($id == null || $id == "" || $url == null || $url == "") {
@@ -165,14 +182,14 @@ class Vistor
         $link_data = new LoginData();
         $con = new mysqli($link_data->__gethost(), $link_data->__getusrname(), $link_data->__getusrpassword());
         if ($con == null) {
-            die("severice link error");
+            die("sever link error");
         }
         if ($con->select_db($link_data->__getdbname()) == false) {
             die("datbase select error");
         }
         $sql = "SELECT id, essay_path FROM blog";
-        $result = $con->query($sql);
-        $result_ary = mysqli_fetch_array($result);
+        $result_org = $con->query($sql);
+        $result_ary = mysqli_fetch_array($result_org);
         foreach ($result_ary as $key => $value) {
             if ($value['art_id'] == $id) {
                 $url = $value['essay_path'];
@@ -192,11 +209,6 @@ class Vistor
 
 class ArtControl extends LoginData
 {
-    public function GetAllArticle(string $name)
-    {
-        $logindata = new LoginData();
-    }
-
     protected function DelArticle()
     {
         //TODO
