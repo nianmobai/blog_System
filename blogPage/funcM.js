@@ -184,7 +184,7 @@ function Import_Tag(array_tag) {
 
 /**
  * 
- * @param {arrary} array_art 
+ * @param {arrary} array_art
  */
 function Import_ArticleIntro(array_art) {
     let count;
@@ -229,6 +229,7 @@ function Add_Retrieval(art) {//depend on art's sort put it in corresponding div
     $('#' + art.sort).prepend(Retrieval_model);
     let element_new = $('#' + art.sort + '>:firstchild');//new element
     if (element_new != null) {
+        element_new.attr("id", art.art_id);//add article's id to the new retrieval we just created
         element_new.find('.pic').css('background-image', "url('" + art['essaypic_path'] + "')");
         element_new.find('.headline').text(art['headline']).bind('touchstart', TurnToEssayPage(art['id']));
         element_new.find('.other-data').text(art['time']);
@@ -236,15 +237,6 @@ function Add_Retrieval(art) {//depend on art's sort put it in corresponding div
     else console.log("error when getting the node element newed,return null");
 }
 
-/**
- * function:binded function to the article div,param is the id of the essay we click or touch
- * @param {string} art_id 
- */
-function TurnToEssayPage(art_id) {
-    if (art_id == null) {
-        console.log("findding error:can't get ");
-    }
-}
 
 /**
  * function:tmport the special module when te part(id)  have no essay

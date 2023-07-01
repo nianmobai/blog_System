@@ -53,8 +53,8 @@ $(document).ready(function () {
 $('.Navigate-button').bind('click', function () {
     let partId = $(this).attr('id');
     let content = partId.replace('-button', '');
-    if(last_button != null)$('#' + last_button).css('box-shadow','inset -2px -5px rgba(0,0,0,0.4)');
-    $(this).css('box-shadow','unset');
+    if (last_button != null) $('#' + last_button).css('box-shadow', 'inset -2px -5px rgba(0,0,0,0.4)');
+    $(this).css('box-shadow', 'unset');
     last_button = partId;
     $('#content > div').hide();
     $('#' + content).fadeIn(200);
@@ -116,6 +116,7 @@ $('#headpic').hover(
  */
 function Add_Retrieval(article) {
     $('#' + article.sort).prepend(Retrieval_model);
+    $('#' + article.sort + first_child_Element).attr("id", article.art_id);
     $('#' + article.sort + first_child_Element + ' .article-pic').css('background-image', 'url(' + article.essaypic_path + ')');
     $('#' + article.sort + first_child_Element + ' .headline').text(article.headline).bind('click', function () {
         // window.location.href = article.essay_path;

@@ -2,38 +2,12 @@
 
 function Get_BlogHosterInro()
 {
+    //TODO
 }
 
 function CheckHealth()
 { //check about the data base
-    $host = 'localhost';
-    $dbname = 'test';
-    $usrname = 'root';
-    $usrpassword = '123456';
-
-    $test = mysqli_connect($host);
-    $test = mysqli_connect($host, $usrname, $usrpassword);
-    if (!$test) { //数据库不存在
-        die("连接错误" . mysqli_connect_errno());
-    }
-    $sql = "SELECT COUNT(*) as `exists`  FROM information_schema.SCHEMATA WHERE SCHEMATA.SCHEMA_NAME = 'blog'";
-    $re = $test->query($sql);
-    if ($re == false) {
-        die($test->error . $test->errno);
-    }
-    $row = $re->fetch_object();
-    $db_exist = (bool) $row->exists;
-
-    if ($db_exist == true) {
-        echo "存在";
-    } else {
-        //initial
-        echo "不存在,创建数据库";
-        Initial($test);
-        //initialize two charps
-    }
-    $test->close();
-    return;
+    //TODO
 }
 
 function Initial(mysqli $con)
@@ -159,7 +133,9 @@ class LoginData
     private $usrname = 'zsj';
     private $usrpassword = '123456';
     private $db_name = 'blog';
+    private $usr_chartName = 'usr';
     private $art_chartName = '';
+    private $intro_chartName = '';
 
     public function __gethost(): string
     {
@@ -181,10 +157,10 @@ class LoginData
 
 class Vistor
 {
-    public function Get_ArticleContent($id, $url)
+    public function Get_ArticleUrl($id, &$url)
     {
-        if ($id == null || $url == null) {
-            die("void id or url");
+        if ($id == null || $id == "" || $url == null || $url == "") {
+            die("void id or void url");
         }
         $link_data = new LoginData();
         $con = new mysqli($link_data->__gethost(), $link_data->__getusrname(), $link_data->__getusrpassword());
@@ -192,9 +168,25 @@ class Vistor
             die("severice link error");
         }
         if ($con->select_db($link_data->__getdbname()) == false) {
-            die("datbase link error");
+            die("datbase select error");
         }
-        $sql = "SELECT id,title";
+        $sql = "SELECT id, essay_path FROM blog";
+        $result = $con->query($sql);
+        $result_ary = mysqli_fetch_array($result);
+        foreach ($result_ary as $key => $value) {
+            if ($value['art_id'] == $id) {
+                $url = $value['essay_path'];
+                break;
+            }
+        }
+        return;
+    }
+
+    //load file with article translate markdown to html to show
+    public function Get_ArticleContent($url)
+    {
+        //TODO
+        return;
     }
 }
 
@@ -207,14 +199,17 @@ class ArtControl extends LoginData
 
     protected function DelArticle()
     {
+        //TODO
     }
 
     protected function AddArticle()
     {
+        //TODO
     }
 
     protected function ChangeArticle()
     {
+        //TODO
     }
 }
 
