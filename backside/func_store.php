@@ -1,5 +1,69 @@
 <?php
 
+function isMobile(): bool
+{
+    //if exist HTTP_X_WAP_PROFILE return true
+    if (isset($_SERVER['HTTP_X_WAP_PROFILE'])) {
+        return true;
+    }
+    // check via message if including 'wap'
+    if (isset($_SERVER['HTTP_VIA'])) {
+        // can't find 'wap' = return flase, find 'wap' = retun true
+        return stristr($_SERVER['HTTP_VIA'], "wap") ? true : false;
+    }
+    //judge depend on the message from client
+    if (isset($_SERVER['HTTP_USER_AGENT'])) {
+        $clientkeywords = array(
+            'nokia',
+            'sony',
+            'ericsson',
+            'mot',
+            'samsung',
+            'htc',
+            'sgh',
+            'lg',
+            'sharp',
+            'sie-',
+            'philips',
+            'panasonic',
+            'alcatel',
+            'lenovo',
+            'iphone',
+            'ipod',
+            'blackberry',
+            'meizu',
+            'android',
+            'netfront',
+            'symbian',
+            'ucweb',
+            'windowsce',
+            'palm',
+            'operamini',
+            'operamobi',
+            'openwave',
+            'nexusone',
+            'cldc',
+            'midp',
+            'wap',
+            'mobile'
+        );
+        // check the key wrods in HTTP_USER_AGENT through canonica
+        if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
+            return true;
+        }
+    }
+    // find the supported protocol (协议法)
+    if (isset($_SERVER['HTTP_ACCEPT'])) {
+        // only support wml, but not support html => pmd
+        // only wml andhtml, nut wml is before html => pmd
+        if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== false) && (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === false || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'text/html')))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 function Get_BlogHosterInro()
 {
     //TODO
@@ -134,8 +198,8 @@ class LoginData
     private $usrpassword = '123456';
     private $db_name = 'blog';
     private $usr_chartName = 'usr';
-    private $art_chartName = '';
-    private $intro_chartName = '';
+    private $art_chartName = 'art';
+    private $intro_chartName = 'intro';
 
     public function __gethost(): string
     {
@@ -152,6 +216,18 @@ class LoginData
     public function __getdbname(): string
     {
         return $this->db_name;
+    }
+    public function __getusr_chartname(): string
+    {
+        return $this->usr_chartName;
+    }
+    public function __getintro_chartname(): string
+    {
+        return $this->intro_chartName;
+    }
+    public function __getart_chartname(): string
+    {
+        return $this->art_chartName;
     }
 }
 
@@ -205,21 +281,30 @@ class Vistor
         //TODO
         return;
     }
+    public function Introget()
+    {
+    }
 }
 
-class ArtControl extends LoginData
+class Control extends LoginData
 {
-    protected function DelArticle()
+    protected function DelArticle($id)
     {
         //TODO
+        //delete the file and remove relavant data from database
     }
 
     protected function AddArticle()
     {
         //TODO
+        //file upload, create a new file to save the article we decide to upload
     }
 
     protected function ChangeArticle()
+    {
+        //TODO
+    }
+    protected function Introchange()
     {
         //TODO
     }
