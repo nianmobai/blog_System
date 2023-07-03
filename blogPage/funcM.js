@@ -118,7 +118,7 @@ function Get_BloghosterIntro() {
         success: function (data, status) {
             let result = JSON.parse(data);
             $('#head_img').css('backgorund-image', "url(" + result['headpic_path'] + ")");//add head picture
-            $('#Introframe-name').html(data['name']);//add name
+            $('#Introframe-name').html(data['o_name']);//add name
             Import_Tag(data['tag']);//add tag
             $('#contact-way').text(data['contact_Way']);//rewrite the content in the contact way box 
         },

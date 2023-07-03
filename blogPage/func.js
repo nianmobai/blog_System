@@ -181,7 +181,7 @@ function Get_BloghosterInto() {
         async: false,
         success: function (data, status) {
             let result = JSON.parse(data);
-            $('#name').text(result['name']);
+            $('#name').text(result['o_name']);
             $('#headpic').css('background-image', 'url(' + result['headpic_path'] + ")");
             for (let index = 0; index < result['tag'].length && index < 6; index++) {
                 let element = result['tag'][index];

@@ -281,8 +281,41 @@ class Vistor
         //TODO
         return;
     }
-    public function Introget()
+}
+
+class Intro
+{
+    public $o_name;
+    public $headpic;
+    public $tag;
+    public $QQ;
+    public $blibli;
+    public $mail;
+    public function Intro_Update(&$intro)
     {
+        $data_link = new LoginData();
+        $con = new mysqli($data_link->__gethost(), $data_link->__getusrname(), $data_link->__getusrpassword());
+        if (!$con) {
+            die("sever link error : " . $con->connect_error);
+        }
+        if ($con->select_db($data_link->__getdbname())) {
+            die("database selec error" . $con->error());
+        }
+        $sql = "SELECT o_name,headpic,tag,QQ,blibli,mail FROM intro";
+        $org_result = $con->query($sql);
+        $asc_result = mysqli_fetch_assoc($org_result);
+        $intro->o_name = $this->o_name = $asc_result['o_name'];
+        $intro->mail = $this->mail = $asc_result['mail'];
+        $intro->tag = $this->tag = $asc_result['tag'];
+        $intro->headpic = $this->headpic = $asc_result['headpic'];
+        $intro->blibli = $this->blibli = $asc_result['blibli'];
+        $intro->QQ = $this->QQ = $asc_result['QQ'];
+        return;
+    }
+    public function Intro_Change($target, $ToChange): bool
+    {
+        //TODO
+        return false;
     }
 }
 
