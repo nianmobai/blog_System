@@ -286,12 +286,21 @@ class Vistor
 class Intro
 {
     public $o_name;
-    public $headpic;
+    public $headpic_path;
     public $tag;
     public $QQ;
     public $blibli;
     public $mail;
-    public function Intro_Update(&$intro)
+    public $update_judge = false;
+
+    private $name_change = 0;
+    private $headpic_change = 1;
+    private $tag_change = 2;
+    private $QQ_change = 3;
+    private $blibli_change = 4;
+    private $mail_change = 5;
+
+    public function Intro_Update()
     {
         $data_link = new LoginData();
         $con = new mysqli($data_link->__gethost(), $data_link->__getusrname(), $data_link->__getusrpassword());
@@ -301,21 +310,83 @@ class Intro
         if ($con->select_db($data_link->__getdbname())) {
             die("database selec error" . $con->error());
         }
-        $sql = "SELECT o_name,headpic,tag,QQ,blibli,mail FROM intro";
+        $sql = "SELECT o_name,headpic_path,tag,QQ,blibli,mail FROM intro";
         $org_result = $con->query($sql);
         $asc_result = mysqli_fetch_assoc($org_result);
-        $intro->o_name = $this->o_name = $asc_result['o_name'];
-        $intro->mail = $this->mail = $asc_result['mail'];
-        $intro->tag = $this->tag = $asc_result['tag'];
-        $intro->headpic = $this->headpic = $asc_result['headpic'];
-        $intro->blibli = $this->blibli = $asc_result['blibli'];
-        $intro->QQ = $this->QQ = $asc_result['QQ'];
-        return;
+        $this->o_name = $asc_result['o_name'];
+        $this->mail = $asc_result['mail'];
+        $this->tag = $asc_result['tag'];
+        $this->headpic_path = $asc_result['headpic'];
+        $this->blibli = $asc_result['blibli'];
+        $this->QQ = $asc_result['QQ'];
+        $this->update_judge = true; //set target to check if this function have runned before
+        return $asc_result;
     }
-    public function Intro_Change($target, $ToChange): bool
+    public function Intro_Change(int $target, $ToChange): bool
     {
         //TODO
+        if (!$this->update_judge)
+            $this->Intro_Update();
+
+
+        switch ($target) {
+            case $this->name_change:
+                $this->o_name = $ToChange;
+                break;
+            case $this->headpic_change:
+                $this->headpic_path = $ToChange;
+                break;
+            case $this->tag_change:
+                $this->tag = $ToChange;
+                break;
+            case $this->QQ_change:
+                $this->QQ = $ToChange;
+                break;
+            case $this->blibli_change:
+                $this->blibli = $ToChange;
+                break;
+            case $this->mail_change:
+                $this->mail = $ToChange;
+                break;
+            default:
+                //TODO
+                break;
+        }
         return false;
+    }
+
+    private function Write_Intro(int $select)
+    {
+        //TODO
+        $data_link = new LoginData();
+        $con = new mysqli($data_link->__gethost(), $data_link->__getusrname(), $data_link->__getusrpassword());
+        if (!$con) {
+            die("secer link error" . $con->connect_error);
+        }
+        if ($con->select_db($data_link->__getdbname()) == false) {
+            die("database select error" . $con->error);
+        }
+        $sql = null;
+        switch ($select) {
+            case $this->name_change:
+                break;
+            case $this->headpic_change:
+                break;
+            case $this->tag_change:
+                break;
+            case $this->QQ_change;
+                break;
+            case $this->blibli_change:
+                break;
+            case $this->mail_change:
+                break;
+            default:
+                //TODO
+                break;
+        }
+        //do with chart"intro" in database blog
+        $con->query($sql);
+
     }
 }
 
