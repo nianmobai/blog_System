@@ -12,7 +12,7 @@
         }
     ],
     "personal": {
-        "name": "test",
+        "o_name": "test",
         "headpic_path": "test",
         "tag": [
             "test",
