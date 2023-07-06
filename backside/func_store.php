@@ -324,32 +324,41 @@ class Intro
     }
     public function Intro_Change(int $target, $ToChange): bool
     {
-        //TODO
         if (!$this->update_judge)
             $this->Intro_Update();
-
-
         switch ($target) {
             case $this->name_change:
                 $this->o_name = $ToChange;
+                Write_Intro(0);
                 break;
             case $this->headpic_change:
                 $this->headpic_path = $ToChange;
+                Write_Intro(1);
                 break;
             case $this->tag_change:
                 $this->tag = $ToChange;
+                Write_Intro(2);
                 break;
             case $this->QQ_change:
                 $this->QQ = $ToChange;
+                Write_Intro(3);
                 break;
             case $this->blibli_change:
                 $this->blibli = $ToChange;
+                Write_Intro(4);
                 break;
             case $this->mail_change:
                 $this->mail = $ToChange;
+                Write_Intro(5);
                 break;
             default:
-                //TODO
+                $this->o_name = $ToChange["o_name"];
+                $this->headpic_path = $ToChange["headpic_path"];
+                $this->tag = $ToChange["tag"];
+                $this->QQ = $ToChange["QQ"];
+                $this->blibli = $ToChange["blibli"];
+                $this->mail = $ToChange["mail"];
+                $this->Write_Intro(-1);
                 break;
         }
         return false;
@@ -369,26 +378,39 @@ class Intro
         $sql = null;
         switch ($select) {
             case $this->name_change:
+                $sql = "UPDATE intro SET o_name = $this->o_name";
                 break;
             case $this->headpic_change:
+                $sql = "UPDATE intro SET headpic_path = $this->headpic_path";
                 break;
             case $this->tag_change:
+                //Q:how to write a array to database?
+                //TODO
                 break;
             case $this->QQ_change;
+                $sql = "UPDATE intro SET QQ = $this->QQ";
                 break;
             case $this->blibli_change:
+                $sql = "UPDATE intro SET blibli = $this->blibli";
                 break;
             case $this->mail_change:
+                $sql = "UPDATE intro SET mail = $this->mail";
                 break;
             default:
                 //TODO
+                $sql = "UPDATE intro SET o_name = $this->o_name, 
+                headpic_path = $this->headpic_path,
+                QQ = $this->QQ,
+                blibli = $this->blibli,
+                mail = $this->mail";
                 break;
         }
         //do with chart"intro" in database blog
         $con->query($sql);
-
+        return;
     }
 }
+
 
 class Control extends LoginData
 {
@@ -408,9 +430,23 @@ class Control extends LoginData
     {
         //TODO
     }
-    protected function Introchange()
+    public function Update_psAndac(string $ps, string $ToChange_ps, string $ToChange_ac)
     {
         //TODO
+        $login = new Login();
+        if ($login->__getps() != $ps)
+            return false;
+        $data_link = new LoginData();
+        $con = new mysqli($data_link->__gethost(), $data_link->__getusrname(), $data_link->__getusrpassword());
+        if (!$con) {
+            die("sever link error" . $con->connect_errno);
+        }
+        if ($con->select_db($data_link->__getdbname()) == false) {
+            die("database select error" . $con->error);
+        }
+        $sql = "UPDATE usr SET usr_password = $ToChange_ps,usr_account = $ToChange_ac";
+        $con->query($sql);
+        return true;
     }
 }
 
