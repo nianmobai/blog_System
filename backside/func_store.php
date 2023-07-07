@@ -313,6 +313,7 @@ class Intro
         $sql = "SELECT o_name,headpic_path,tag,QQ,blibli,mail FROM intro";
         $org_result = $con->query($sql);
         $asc_result = mysqli_fetch_assoc($org_result);
+        $asc_result['tag'] = json_encode($asc_result['tag']); //translate string to array
         $this->o_name = $asc_result['o_name'];
         $this->mail = $asc_result['mail'];
         $this->tag = $asc_result['tag'];
@@ -384,8 +385,8 @@ class Intro
                 $sql = "UPDATE intro SET headpic_path = $this->headpic_path";
                 break;
             case $this->tag_change:
-                //Q:how to write a array to database?
-                //TODO
+                $tran_data = json_encode($this->tag); //translate array to string
+                $sql = "UPDATE intro SET tag = $tran_data";
                 break;
             case $this->QQ_change;
                 $sql = "UPDATE intro SET QQ = $this->QQ";
@@ -398,8 +399,10 @@ class Intro
                 break;
             default:
                 //TODO
+                $str = json($this->tag);
                 $sql = "UPDATE intro SET o_name = $this->o_name, 
                 headpic_path = $this->headpic_path,
+                tag = $str,
                 QQ = $this->QQ,
                 blibli = $this->blibli,
                 mail = $this->mail";
