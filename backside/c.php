@@ -1,7 +1,7 @@
 <?php
 session_start(); //启动session服务
 if (isset($_SESSION['admin']) && $_SESSION['admin'] == false) {
-    header("Location: ../../blogPage/login/signIn.php");
+    header("Location: ../login/signIn.php");
 }
 session_write_close();
 ?>

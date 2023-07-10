@@ -95,14 +95,7 @@ $('#headpic').hover(
     function () {
         $(this).css('transform', 'scale(1)');
     }).bind('click', function () {
-        window.location.href = './login/signIn.php';
-        $.ajax({
-            url: '../index.php',
-            async: false,
-            error: function () {
-                console.log('link error')
-            }
-        })
+        window.location.href = '../login/signIn.php';
     }).mousedown(function () {
         $(this).css('transform', 'scale(1.01)');
     }).mouseup(
