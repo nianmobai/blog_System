@@ -1,13 +1,12 @@
 <?php
 session_start();
-    if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
-        header($url);
-    }
-    else{
-        $_SESSION['admin'] = false;
-        echo "<script type='text/javascript'>console.log('auto log in fail');</script>";
-    }
-    session_write_close();
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == true) {
+    header($url);
+} else {
+    $_SESSION['admin'] = false;
+    echo "<script type='text/javascript'>console.log('auto log in fail');</script>";
+}
+session_write_close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +33,7 @@ session_start();
     <div id="notice" class="flex flex-center"></div>
 </body>
 <script type="text/javascript" src="/sourcefile/jquery.min.js"></script>
-<script type="text/javascript" src="/StockBackSpace.js"></script>
+<script type="text/javascript" src="../sourcefile/StockBackSpace.js"></script>
 <script type="text/javascript" src="./singin.js"></script>
 
 </html>
