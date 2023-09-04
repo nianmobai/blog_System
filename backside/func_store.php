@@ -308,7 +308,7 @@ class Intro
             die("sever link error : " . $con->connect_error);
         }
         if ($con->select_db($data_link->__getdbname())) {
-            die("database selec error" . $con->error());
+            die("database selec error" . $con->error);
         }
         $sql = "SELECT o_name,headpic_path,tag,QQ,blibli,mail FROM intro";
         $org_result = $con->query($sql);
@@ -330,27 +330,27 @@ class Intro
         switch ($target) {
             case $this->name_change:
                 $this->o_name = $ToChange;
-                Write_Intro(0);
+                $this->Write_Intro(0);
                 break;
             case $this->headpic_change:
                 $this->headpic_path = $ToChange;
-                Write_Intro(1);
+                $this->Write_Intro(1);
                 break;
             case $this->tag_change:
                 $this->tag = $ToChange;
-                Write_Intro(2);
+                $this->Write_Intro(2);
                 break;
             case $this->QQ_change:
                 $this->QQ = $ToChange;
-                Write_Intro(3);
+                $this->Write_Intro(3);
                 break;
             case $this->blibli_change:
                 $this->blibli = $ToChange;
-                Write_Intro(4);
+                $this->Write_Intro(4);
                 break;
             case $this->mail_change:
                 $this->mail = $ToChange;
-                Write_Intro(5);
+                $this->Write_Intro(5);
                 break;
             default:
                 $this->o_name = $ToChange["o_name"];
@@ -399,7 +399,7 @@ class Intro
                 break;
             default:
                 //TODO
-                $str = json($this->tag);
+                $str = json_decode($this->tag);//json to obj
                 $sql = "UPDATE intro SET o_name = $this->o_name, 
                 headpic_path = $this->headpic_path,
                 tag = $str,
