@@ -5,7 +5,7 @@ $url;
 if (isMobile()) {
     $url = "./blogPage/blogM.html";
 } else {
-    $url = "./blogPage/indexpage/enterindex.html";
+    $url = "./blogPage/enterpage/enterindex.html";
 }
 Turn_Page($url);
 ?>

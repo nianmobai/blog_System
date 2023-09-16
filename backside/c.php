@@ -1,4 +1,5 @@
 <?php
+include "./func_store.php";
 session_start(); //启动session服务
 if (isset($_SESSION['admin']) && $_SESSION['admin'] == false) {
     header("Location: ../login/signIn.php");
@@ -18,5 +19,8 @@ session_write_close();
     <p>
         登录成功，进入控制台页面
     </p>
+    <button>
+        退出登录
+    </button>
 </body>
 </html>
