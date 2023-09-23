@@ -70,7 +70,7 @@ function Get_BlogHosterInro()
 }
 
 function CheckHealth()
-{ //check about the data base
+{
     //TODO
 }
 
@@ -110,7 +110,7 @@ class Login
     private $accountNum;
     public function __construct()
     {
-        $link = new LoginData();
+        $link = new LinkData();
         $connect = mysqli_connect($link->__gethost(), $link->__getusrname(), $link->__getusrpassword(), $link->__getdbname());
         if (!$connect) {
             die("Error:" . mysqli_connect_errno());
@@ -119,21 +119,35 @@ class Login
         $this->password = $this->Get_Pssword($connect);
         $connect->close();
     }
-
+    /**
+     * get password string from the class
+     */
     public function __getps()
     {
         return $this->password;
     }
+
+    /**
+     * get account string from the class
+     */
     public function __getac()
     {
         return $this->accountNum;
     }
 
+      /**
+     * get left number from the session now
+     * @return int left number
+     */
     public function __get_left(): int
     {
         return $_SESSION['left'];
     }
 
+    /**
+     * set the  left number to 5 (origin value)
+     * @return bool function run successfully
+     */
     public function __reset_left(): bool
     {
         session_start();
@@ -142,6 +156,14 @@ class Login
         return true;
     }
 
+    /**
+     * let the left number minus 1
+     * @return bool minus successfully or fail
+     * 
+     * turn mean function success
+     * 
+     * false mean function fail
+     */
     public function __set_left_decre(): bool
     {
         session_start();
@@ -154,6 +176,20 @@ class Login
         }
     }
 
+    /**
+     * varify the account and password 
+     * 
+     * @param string $ac account input
+     * @param string $ps password input
+     * @param mixed &$error_mes  return the error message(1 \ 2 \ 0).
+     * 
+     * 0 means login successfully, 1 and 2 means login fail
+     *
+     * 1 means the account string is wrong 
+     * 
+     * 2 means the account string is right, but the password wrong            
+     * @return bool return the login result(ture or false). if true, login successfully; if false login fail 
+     */
     public function Comfirm(string $ac, string $ps, &$error_mes): bool
     {
         if ($ac == $this->accountNum) {
@@ -170,16 +206,25 @@ class Login
         }
     }
 
+    /**
+     * get the account string from database
+     * @param mysqli $con the connection with the database (database already selected)
+     * @return string account string
+     */
     private function Get_Account(mysqli $con): string
-    { //get the account from database
+    { 
         $sql = "SELECT usr_account FROM usr";
         $ac = mysqli_query($con, $sql);
         $ac = $ac->fetch_array();
-        if ($ac == null)
-            die("error");
+        if ($ac == null)die("error");
         return $ac[0];
     }
 
+    /**
+     * get the password string from database
+     * @param mysqli $con the connection with the database (database already selected)
+     * @return string password string
+     */
     private function Get_Pssword(mysqli $con): string
     { //get the password from database
         $sql = "SELECT usr_password FROM usr";
@@ -191,7 +236,7 @@ class Login
     }
 }
 
-class LoginData
+class LinkData
 {
     protected $host = 'localhost';
     private $usrname = 'zsj';
@@ -237,7 +282,7 @@ class Vistor
     {
         //art_id,headline,sort,essaypic_path,briefIntro,create_time
         //TODO
-        $db_link = new LoginData();
+        $db_link = new LinkData();
         $con = new mysqli($db_link->__gethost(), $db_link->__getusrname(), $db_link->__getusrpassword());
         if ($con == null) {
             die("sever link error");
@@ -255,7 +300,7 @@ class Vistor
         if ($id == null || $id == "" || $url == null || $url == "") {
             die("void id or void url");
         }
-        $link_data = new LoginData();
+        $link_data = new LinkData();
         $con = new mysqli($link_data->__gethost(), $link_data->__getusrname(), $link_data->__getusrpassword());
         if ($con == null) {
             die("sever link error");
@@ -302,12 +347,12 @@ class Intro
 
     public function Intro_Update()
     {
-        $data_link = new LoginData();
-        $con = new mysqli($data_link->__gethost(), $data_link->__getusrname(), $data_link->__getusrpassword());
+        $link_data = new LinkData();
+        $con = new mysqli($link_data->__gethost(), $link_data->__getusrname(), $link_data->__getusrpassword());
         if (!$con) {
             die("sever link error : " . $con->connect_error);
         }
-        if ($con->select_db($data_link->__getdbname())) {
+        if ($con->select_db($link_data->__getdbname())) {
             die("database selec error" . $con->error);
         }
         $sql = "SELECT o_name,headpic_path,tag,QQ,blibli,mail FROM intro";
@@ -323,6 +368,7 @@ class Intro
         $this->update_judge = true; //set target to check if this function have runned before
         return $asc_result;
     }
+
     public function Intro_Change(int $target, $ToChange): bool
     {
         if (!$this->update_judge)
@@ -368,7 +414,7 @@ class Intro
     private function Write_Intro(int $select)
     {
         //TODO
-        $data_link = new LoginData();
+        $data_link = new LinkData();
         $con = new mysqli($data_link->__gethost(), $data_link->__getusrname(), $data_link->__getusrpassword());
         if (!$con) {
             die("secer link error" . $con->connect_error);
@@ -415,7 +461,7 @@ class Intro
 }
 
 
-class Control extends LoginData
+class Control extends LinkData
 {
     protected function DelArticle($id)
     {
@@ -439,7 +485,7 @@ class Control extends LoginData
         $login = new Login();
         if ($login->__getps() != $ps)
             return false;
-        $data_link = new LoginData();
+        $data_link = new LinkData();
         $con = new mysqli($data_link->__gethost(), $data_link->__getusrname(), $data_link->__getusrpassword());
         if (!$con) {
             die("sever link error" . $con->connect_errno);
