@@ -1,5 +1,4 @@
 <?php
-
 function isMobile(): bool
 {
     //if exist HTTP_X_WAP_PROFILE return true
@@ -108,6 +107,10 @@ class Login
 {
     private $password;
     private $accountNum;
+
+    /**
+     * intial the Login data(including getting password and account),link database
+     */
     public function __construct()
     {
         $link = new LinkData();
@@ -119,6 +122,7 @@ class Login
         $this->password = $this->Get_Pssword($connect);
         $connect->close();
     }
+
     /**
      * get password string from the class
      */
@@ -236,6 +240,7 @@ class Login
     }
 }
 
+
 class LinkData
 {
     protected $host = 'localhost';
@@ -275,6 +280,7 @@ class LinkData
         return $this->art_chartName;
     }
 }
+
 
 class Vistor
 {
@@ -327,6 +333,7 @@ class Vistor
         return;
     }
 }
+
 
 class Intro
 {

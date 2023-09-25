@@ -17,7 +17,7 @@ session_write_close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        @import url('../css/signed.css');
+        @import url('signed.css');
     </style>
 </head>
 
